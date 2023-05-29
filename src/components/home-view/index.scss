@@ -1,0 +1,363 @@
+@import './variables.scss';
+$width: 90%;
+$light_color: white;
+$dark_color: black;
+
+
+.container {
+  width: $width;
+  margin: auto;
+  padding: 20px 0x;
+  margin-top: 30px;
+
+}
+
+@mixin temperature() {
+  color: $light_color;
+  font-family: $font-family-heading;
+  font-weight: weight(bold);
+  font-size: 1.8rem;
+}
+
+@function weight($weight-name) {
+  @return map-get($font_weights, $weight-name )
+}
+
+@mixin FlexContainer() {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.input_container {
+  margin-top: 10px;
+}
+
+.search_input {
+  padding: 10px 10px;
+  outline: transparent;
+  border-radius: 5px;
+  border-width: 0px;
+  width: 100%;
+  background: #101027;
+}
+
+.inside {
+
+  .heading_one {
+    text-align: center;
+    color: $light_color;
+    font-family: $font-family-heading;
+    font-weight: weight(bold);
+    font-size: 2rem;
+  }
+
+  .stats_001 {
+    padding-top: 30px;
+    @include FlexContainer();
+    color: $light_color;
+
+    h2 {
+      font-weight: weight(bold);
+    }
+
+    p {
+      font-weight: weight(light);
+      font-family: $font-family-text;
+    }
+  }
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: 200ms ease-in-out;
+  // border: 1px solid black;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // border-bottom: 1px solid black;
+}
+
+.modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 25px 15px;
+
+  h3 {
+    font-weight: weight(light);
+    font-size: medium;
+  }
+
+  .pre-body {
+    margin-top: 20px;
+  }
+
+  button {
+    padding: 10px 10px;
+    background-color: #005eff;
+    color: $light_color;
+    border-radius: 10px;
+    outline: none;
+    width: 100%;
+    border: none;
+  }
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .9);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.weather {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(56, 56, 150, 1) 35%, rgba(0, 212, 255, 1) 100%);
+  padding: 20px 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+
+  .inner_weather {
+    width: 95%;
+    margin: auto;
+    // padding: 20px 0px;
+    @include FlexContainer();
+
+    .temp {
+      color: $light_color;
+      font-family: $font-family-heading;
+      font-weight: weight(bold);
+      font-size: 2.0rem;
+      text-align: right;
+      padding: 5px;
+    }
+
+    .weat_01 {
+
+      // padding-top: 10px;
+      // justify-self: start;
+      h3 {
+        text-align: right;
+        color: $light_color;
+        padding: 2px;
+        font-weight: weight(bold);
+      }
+
+      p {
+        // padding: 10px 0px;
+        // margin-top: 5px;
+        color: $light_color;
+        font-size: 10px;
+        padding: 2px;
+
+        span {
+          font-weight: weight(bold);
+        }
+      }
+    }
+
+    .temp--location {
+      // @extend .temp;
+      color: $light_color;
+      font-family: $font-family-heading;
+      font-weight: weight(bold);
+      font-size: 1.4rem;
+    }
+
+  }
+}
+
+.my_weather {
+  padding-top: 20px;
+  margin-top: 10px;
+
+  .top_cities {
+    font-family: $font-family-text;
+    color: $light_color;
+    font-weight: weight(bold);
+    font-size: larger;
+  }
+
+  .inner_cities {
+    padding: 20px 0px;
+    cursor: pointer;
+
+    .cities {
+      padding: 10px 14px;
+      @include FlexContainer();
+      background: #0f0e31;
+      margin-top: 10px;
+      border-radius: 10px;
+
+      // background: rgba(0, 0, 0, .9);
+      h2 {
+        color: $light_color;
+        font-weight: weight(bold);
+        padding: 5px 0px;
+      }
+
+      p {
+        font-weight: weight(light);
+        color: $light_color;
+        padding: 5px 0px;
+        font-family: $font-family-text;
+
+        span {
+          font-weight: weight(bold);
+        }
+      }
+
+    }
+
+    .cities_inner {
+      flex: 1;
+
+      .h2_tag {
+        text-align: center;
+        @include temperature() // color: $light_color;
+
+      }
+
+    }
+
+    // .h2_tag{
+    //   text-align: center;
+    // }
+  }
+}
+
+@media screen and (min-width:700px) {
+  @mixin temperature() {
+    font-size: 6rem;
+  }
+  .inner_weather{
+    
+    .temp {
+      color: $light_color;
+      font-family: $font-family-heading;
+      font-weight: weight(bold);
+      font-size: 6rem;
+      text-align: right;
+      padding: 5px;
+    }
+  }
+
+  .inside {
+    .heading_one {
+      text-align: center;
+      color: $light_color;
+      font-family: $font-family-heading;
+      font-weight: weight(bold);
+      font-size: 3.2rem;
+    }
+  }
+
+  .container {
+    width: 70%;
+  }
+
+  .cities {
+    padding: 20px 14px;
+    height: 140px;
+  }
+
+  .heading_one {
+    font-size: 3rem;
+  }
+
+  .h2_tag {
+    font-size: 6rem;
+  }
+
+  .cities_inner {
+    h2 {
+      font-size: 1.8rem;
+      font-family: $font-family-text;
+    }
+
+    p {
+      font-size: 1.5rem;
+    }
+
+    .feels {
+      font-size: 1.3rem;
+    }
+
+    img {
+      justify-self: end;
+      align-self: flex-end;
+    }
+
+  }
+  .weat_01 {
+
+    // padding-top: 10px;
+    // justify-self: start;
+    h3 {
+      text-align: right;
+      color: $light_color;
+      padding: 2px;
+      font-weight: weight(bold);
+    }
+
+    p {
+      // padding: 10px 0px;
+      // margin-top: 5px;
+      color: $light_color;
+      font-size: 1.6rem;
+      padding: 2px;
+
+      span {
+        font-weight: weight(bold);
+      }
+    }
+  }
+
+
+ 
+
+
+
+  // .h2_tag{
+
+  // }
+
+}

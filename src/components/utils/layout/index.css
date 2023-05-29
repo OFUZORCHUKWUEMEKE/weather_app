@@ -1,0 +1,11 @@
+.back_ground_light {
+  background-image: url(../../../assets/background/day.jpg);
+  width: 100%;
+  min-height: 100vh;
+}
+
+.back_ground_dark {
+  background-image: url(../../../assets/background/day01.jpg);
+  width: 100%;
+  min-height: 100vh;
+}/*# sourceMappingURL=index.css.map */

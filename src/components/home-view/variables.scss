@@ -1,0 +1,27 @@
+@font-face {
+    font-family: "Exo 2";
+    // src: url("../assets/fonts/Exo2-Regular.ttf");
+    src: url(../../assets/fonts/Exo2-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Karla";
+    // src: url("../assets/fonts/Karla-Regular.ttf");
+    src: url(../../assets/fonts/Karla-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Mogra";
+    src: url(../../assets/fonts/Mogra-Regular.ttf);
+}
+
+
+$font_weights: (
+    "regular":400,
+    "medium":500,
+    "bold":700
+);
+
+$font-family-text: "Karla";
+$font-family-digit: "Exo 2";
+$font-family-heading: "Mogra";

@@ -1,0 +1,275 @@
+@font-face {
+  font-family: "Exo 2";
+  src: url(../../assets/fonts/Exo2-Regular.ttf);
+}
+@font-face {
+  font-family: "Karla";
+  src: url(../../assets/fonts/Karla-Regular.ttf);
+}
+@font-face {
+  font-family: "Mogra";
+  src: url(../../assets/fonts/Mogra-Regular.ttf);
+}
+.container {
+  width: 90%;
+  margin: auto;
+  padding: 20px 0x;
+  margin-top: 30px;
+}
+
+.input_container {
+  margin-top: 10px;
+}
+
+.search_input {
+  padding: 10px 10px;
+  outline: transparent;
+  border-radius: 5px;
+  border-width: 0px;
+  width: 100%;
+  background: #101027;
+}
+
+.inside .heading_one {
+  text-align: center;
+  color: white;
+  font-family: "Mogra";
+  font-weight: 700;
+  font-size: 2rem;
+}
+.inside .stats_001 {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.inside .stats_001 h2 {
+  font-weight: 700;
+}
+.inside .stats_001 p {
+  font-family: "Karla";
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: 200ms ease-in-out;
+  border-radius: 10px;
+  z-index: 10;
+  background-color: white;
+  width: 500px;
+  max-width: 80%;
+}
+
+.modal.active {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-header {
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header .title {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-header .close-button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.modal-body {
+  padding: 25px 15px;
+}
+.modal-body h3 {
+  font-size: medium;
+}
+.modal-body .pre-body {
+  margin-top: 20px;
+}
+.modal-body button {
+  padding: 10px 10px;
+  background-color: #005eff;
+  color: white;
+  border-radius: 10px;
+  outline: none;
+  width: 100%;
+  border: none;
+}
+
+#overlay {
+  position: fixed;
+  opacity: 0;
+  transition: 200ms ease-in-out;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+}
+
+#overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.weather {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(90deg, rgb(2, 0, 36) 0%, rgb(56, 56, 150) 35%, rgb(0, 212, 255) 100%);
+  padding: 20px 15px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+.weather .inner_weather {
+  width: 95%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.weather .inner_weather .temp {
+  color: white;
+  font-family: "Mogra";
+  font-weight: 700;
+  font-size: 2rem;
+  text-align: right;
+  padding: 5px;
+}
+.weather .inner_weather .weat_01 h3 {
+  text-align: right;
+  color: white;
+  padding: 2px;
+  font-weight: 700;
+}
+.weather .inner_weather .weat_01 p {
+  color: white;
+  font-size: 10px;
+  padding: 2px;
+}
+.weather .inner_weather .weat_01 p span {
+  font-weight: 700;
+}
+.weather .inner_weather .temp--location {
+  color: white;
+  font-family: "Mogra";
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.my_weather {
+  padding-top: 20px;
+  margin-top: 10px;
+}
+.my_weather .top_cities {
+  font-family: "Karla";
+  color: white;
+  font-weight: 700;
+  font-size: larger;
+}
+.my_weather .inner_cities {
+  padding: 20px 0px;
+  cursor: pointer;
+}
+.my_weather .inner_cities .cities {
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f0e31;
+  margin-top: 10px;
+  border-radius: 10px;
+}
+.my_weather .inner_cities .cities h2 {
+  color: white;
+  font-weight: 700;
+  padding: 5px 0px;
+}
+.my_weather .inner_cities .cities p {
+  color: white;
+  padding: 5px 0px;
+  font-family: "Karla";
+}
+.my_weather .inner_cities .cities p span {
+  font-weight: 700;
+}
+.my_weather .inner_cities .cities_inner {
+  flex: 1;
+}
+.my_weather .inner_cities .cities_inner .h2_tag {
+  text-align: center;
+  color: white;
+  font-family: "Mogra";
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+@media screen and (min-width: 700px) {
+  .inner_weather .temp {
+    color: white;
+    font-family: "Mogra";
+    font-weight: 700;
+    font-size: 6rem;
+    text-align: right;
+    padding: 5px;
+  }
+  .inside .heading_one {
+    text-align: center;
+    color: white;
+    font-family: "Mogra";
+    font-weight: 700;
+    font-size: 3.2rem;
+  }
+  .container {
+    width: 70%;
+  }
+  .cities {
+    padding: 20px 14px;
+    height: 140px;
+  }
+  .heading_one {
+    font-size: 3rem;
+  }
+  .h2_tag {
+    font-size: 6rem;
+  }
+  .cities_inner h2 {
+    font-size: 1.8rem;
+    font-family: "Karla";
+  }
+  .cities_inner p {
+    font-size: 1.5rem;
+  }
+  .cities_inner .feels {
+    font-size: 1.3rem;
+  }
+  .cities_inner img {
+    justify-self: end;
+    align-self: flex-end;
+  }
+  .weat_01 h3 {
+    text-align: right;
+    color: white;
+    padding: 2px;
+    font-weight: 700;
+  }
+  .weat_01 p {
+    color: white;
+    font-size: 1.6rem;
+    padding: 2px;
+  }
+  .weat_01 p span {
+    font-weight: 700;
+  }
+}/*# sourceMappingURL=index.css.map */
