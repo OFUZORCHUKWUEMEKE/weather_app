@@ -156,14 +156,12 @@ const Home = () => {
                       {/* <h2 className="temp--location">{userWeather.location.name}</h2> */}
                       <div className="">
                         {/* <h2 className="temp">{userWeather.current.temp_c}'c</h2> */}
-                        <img src={isDay ? `${image?.day}` : `$${image?.night}`} style={{ width: '100%', height: '70px', objectFit: 'contain' }} />
+                        <img src={isDay ? `${image?.day}` : `${image?.night}`} style={{ width: '100%', height: '70px', objectFit: 'contain' }} />
                       </div>
                       <h2 className="temp">{userWeather.current.temp_c}'c</h2>
                       <div className="weat_01">
                         <h3>{userWeather.location.name}</h3>
                         <h3>{userWeather.location.localtime.split(" ")[1]}</h3>
-
-
                         <p className="p_tag">Feels Like <span>{userWeather.current.feelslike_c} 'c</span> </p>
                       </div>
                     </div>
@@ -202,7 +200,7 @@ const Home = () => {
                             <h3 className="h2_tag">{weather.current.temp_c}'c</h3>
                           </div>
                           <div className="cities_inner">
-                            <img src={isDay ? `${image?.day}` : `$${image?.night}`} style={{ width: '100%', height: '70px', objectFit: 'contain' }} />
+                            <img src={isDay ? `${image?.day}` : `${image?.night}`} style={{ width: '100%', height: '70px', objectFit: 'contain' }} />
                           </div>
                         </div>
                       )

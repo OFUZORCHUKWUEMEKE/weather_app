@@ -25,13 +25,13 @@ const Layout: React.FC = (props) => {
     }, 500);
   };
 
-  const getCoord =()=> `${weatherResult?.location?.lat},${weatherResult?.location?.lon}`;
+  const getCoord = () => `${weatherResult?.location?.lat},${weatherResult?.location?.lon}`;
 
-  const {time,number , isDay , isNight} = getDayandTime()
-  console.log({time,number})
+  const { time, number, isDay, isNight } = getDayandTime()
+  console.log({ time, number })
 
   return (
-    <div className={isNight ? "back_ground_dark":"back_ground_light"}>
+    <div className={isNight ? "back_ground_dark" : "back_ground_light"}>
       {/* <img src='/background/art.jpg' style={{width:'100vw'}}/> */}
       {/* <input
         type="search"
@@ -46,7 +46,6 @@ const Layout: React.FC = (props) => {
       {weatherResult?.location && <Link to={pageurl.WEATHER_DETAIL.replace(":location", getCoord())}>
         {JSON.stringify(weatherResult)}
       </Link>}
-
       <br />
       <Outlet />
     </div>
