@@ -2,15 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { IWeather } from "../../interfaces/IWeather";
 import { localstorageSet } from "../../utils/local-storage-helpers";
-import { localStorageKeys } from "../../utils/constants";
-import { getFavLocations, isFavourite } from "../../utils/functions";
+import { localStorageKeys, weatherConditionCodesMappedToIcons } from "../../utils/constants";
+import { getDayandTime, getFavLocations, isFavourite } from "../../utils/functions";
 import { useOnlineStatus } from "../../hooks/use-online";
+import './index.scss'
 
 const WeatherDetail = () => {
   const weather = useLoaderData() as IWeather;
   const { isOnline } = useOnlineStatus();
 
+  const [forecast, setForecast] = useState(false)
+
+  const { location, current } = weather;
+
+  const { time, number, isDay, isNight, todaysDate, Today } = getDayandTime()
+
+  console.log(weather)
+  console.log({ weather, isDay })
+
   const [isFav, setIsFav] = useState<boolean>(!!isFavourite(weather));
+
+  console.log(isFav)
 
   const toggleFavorite = (item: IWeather) => {
     const {
@@ -60,12 +72,81 @@ const WeatherDetail = () => {
     );
   }, [isOnline, weather]);
 
+  const image = weatherConditionCodesMappedToIcons.find((weat) => weat.code === weather.current.condition.code)
+
   return (
     <div
-      style={isFav ? { color: "purple" } : { color: "chocolate" }}
-      onClick={() => toggleFavorite(weather)}
+      // style={isFav ? { color: "purple" } : { color: "chocolate" }}
+      // onClick={() => toggleFavorite(weather)}
+      className={isDay ? 'back_ground_light' : 'back_ground_dark'}
     >
-      {JSON.stringify(weather)}
+      <div className="weather-details-container">
+        <div className="weather-detail-child">
+          <div className="header">
+            <h1 className="name">{location.name}</h1>
+            <p className="date">{Today}</p>
+            <div className="forecast">
+              <div className="forecast_000" onClick={()=>setForecast(true)}>
+                <h2>Forecast</h2>
+              </div>
+              <div className="forecast_001" onClick={()=>setForecast(false)}>
+                <h2>Notes</h2>
+              </div>
+            </div>
+            <div className="image-padding">
+              {forecast ? (<img className="image-0" src={isDay ? `${image?.day}` : `${image?.night}`} />) : (
+                <div className="extra-padding">
+                  <div className="padding-text">
+                    {/* <h2 className="">Notes</h2> */}
+                  </div>
+
+                  <input placeholder="Add Notes" className="add-input" />
+                </div>
+              )}
+            </div>
+            <div className="weather-detail">
+              <div className="weather-detail-one">
+                <div className="inner-weather-detail">
+                  <p>Temp</p>
+                  <h2>{current.temp_c}'c</h2>
+                </div>
+                <div className="inner-weather-detail">
+                  <p>Wind</p>
+                  <h2>{current.wind_kph}kph</h2>
+                </div>
+                <div className="inner-weather-detail">
+                  <p>Humidity</p>
+                  <h2>{current.humidity}</h2>
+                </div>
+              </div>
+            </div>
+            <div className="other-details">
+              <h2>Today</h2>
+              <div className="other-details-content">
+                <div className="other-details-card">
+                  <div className="other-details-card-content">
+                    <div className="content-001">
+                      <img className="" src={isDay ? `${image?.day}` : `${image?.night}`} />
+                    </div>
+                    <div className="content-01">
+                      <p>{location.localtime.split(" ")[1]}</p>
+                      <h3>{current.temp_c}'c</h3>
+                    </div>
+                  </div>
+                </div>
+                <div className="other-details-card01">
+                  <div className="other-details-card-content01">
+                    <div className="content-01">
+                      {/* <p>{location.localtime.split(" ")[1]}</p> */}
+                      <h4 className="weather-region">{location.name}</h4>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

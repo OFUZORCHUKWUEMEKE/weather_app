@@ -14,6 +14,33 @@ export function importAllIcons(r: __WebpackModuleApi.RequireContext) {
   return icons;
 }
 
+export const getDayandTime = () => {
+  const date = Date()
+ 
+  const todaysDate = `${date.split(" ")[0]} ${date.split(" ")[1]} ${date.split(" ")[2]},${date.split(" ")[3]}`
+  const Today = `${date.split(" ")[1]} ${date.split(" ")[2]},${date.split(" ")[3]}`
+  
+
+  let isDay;
+  let isNight;
+
+  const time = Date().split(" ")[4]
+
+  const number = time.split(":")[0]
+
+  if (parseInt(number) >= 5 && parseInt(number) <= 16) {
+      isDay = true
+      isNight = false
+  } else {
+      isDay = false
+      isNight = true
+  }
+
+
+  // console.log({isDay,isNight})
+  return { time, number , isDay , isNight,todaysDate ,Today }
+}
+
 export function hash(thing: string): string {
   return AES.encrypt(thing, REACT_APP_PASSPHRASE).toString();
 }
@@ -105,7 +132,7 @@ export const getWeatherFromCache = (location: string) => {
       { isObject: true }
     ) as IWeather[] | null;
 
-    console.log(weatherCache)
+    // console.log(weatherCache)
 
     const cachedWeather = weatherCache?.find(
       (w) =>

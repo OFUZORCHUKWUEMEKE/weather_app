@@ -10,13 +10,18 @@ $dark_color: black;
   padding: 20px 0x;
   margin-top: 30px;
 
+  @media (min-width:$sm-breakpoint) {
+    width: 70%;
+  }
+
 }
 
 @mixin temperature() {
   color: $light_color;
-  font-family: $font-family-heading;
+  font-family: $font-family-digit;
   font-weight: weight(bold);
   font-size: 1.8rem;
+
 }
 
 @function weight($weight-name) {
@@ -34,13 +39,21 @@ $dark_color: black;
 }
 
 .search_input {
-  padding: 10px 10px;
+  padding: 16px 12px;
   outline: transparent;
   border-radius: 5px;
+  
   border-width: 0px;
   width: 100%;
+  color: white;
   background: #101027;
+
+  @media (min-width:$sm-breakpoint) {
+    padding: 30px 15px;
+    font-size: 1.3rem;
+ }
 }
+
 
 .inside {
 
@@ -74,13 +87,14 @@ $dark_color: black;
   left: 50%;
   transform: translate(-50%, -50%) scale(1);
   transition: 200ms ease-in-out;
-  // border: 1px solid black;
   border-radius: 10px;
   z-index: 10;
   background-color: white;
   width: 500px;
   max-width: 80%;
 }
+
+
 
 .modal.active {
   transform: translate(-50%, -50%) scale(1);
@@ -91,8 +105,13 @@ $dark_color: black;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  // border-bottom: 1px solid black;
+ 
+  @media (min-width:$sm-breakpoint) {
+     padding: 20px 15px;
+  }
+  
 }
+
 
 .modal-header .title {
   font-size: 1.25rem;
@@ -114,6 +133,10 @@ $dark_color: black;
   h3 {
     font-weight: weight(light);
     font-size: medium;
+
+    @media (min-width:$sm-breakpoint) {
+      font-size: 1.4rem;
+    }
   }
 
   .pre-body {
@@ -128,6 +151,11 @@ $dark_color: black;
     outline: none;
     width: 100%;
     border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    @media (min-width:$sm-breakpoint) {
+      padding: 15px 10px;
+    }
   }
 }
 
@@ -163,37 +191,44 @@ $dark_color: black;
 
     .temp {
       color: $light_color;
-      font-family: $font-family-heading;
+      font-family: $font-family-digit;
       font-weight: weight(bold);
       font-size: 2.0rem;
       text-align: right;
       padding: 5px;
+
+      @media (min-width:$sm-breakpoint) {
+
+        color: $light_color;
+        font-family: $font-family-heading;
+        font-weight: weight(bold);
+        font-size: 4rem;
+        text-align: right;
+        padding: 5px;
+      }
     }
 
+    img {
+      height: 70px;
+      width: 100%;
+      object-fit: contain;
+    }
     .weat_01 {
-
-      // padding-top: 10px;
-      // justify-self: start;
       h3 {
         text-align: right;
         color: $light_color;
         padding: 2px;
         font-weight: weight(bold);
       }
-
       p {
-        // padding: 10px 0px;
-        // margin-top: 5px;
         color: $light_color;
         font-size: 10px;
         padding: 2px;
-
         span {
           font-weight: weight(bold);
         }
       }
     }
-
     .temp--location {
       // @extend .temp;
       color: $light_color;
@@ -201,7 +236,6 @@ $dark_color: black;
       font-weight: weight(bold);
       font-size: 1.4rem;
     }
-
   }
 }
 
@@ -214,20 +248,27 @@ $dark_color: black;
     color: $light_color;
     font-weight: weight(bold);
     font-size: larger;
-  }
 
+    @media (min-width:$sm-breakpoint) {
+      font-size: 1.5rem;
+    }
+  }
   .inner_cities {
     padding: 20px 0px;
     cursor: pointer;
-
     .cities {
       padding: 10px 14px;
       @include FlexContainer();
-      background: #0f0e31;
+     
       margin-top: 10px;
-      border-radius: 10px;
-
-      // background: rgba(0, 0, 0, .9);
+      
+      background: rgba(15, 14, 49, 0.6);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(6.4px);
+      -webkit-backdrop-filter: blur(6.4px);
+      border: 1px solid rgba(15, 14, 49, 0.38);
+    
       h2 {
         color: $light_color;
         font-weight: weight(bold);
@@ -253,32 +294,111 @@ $dark_color: black;
       .h2_tag {
         text-align: center;
         @include temperature() // color: $light_color;
-
       }
-
     }
 
-    // .h2_tag{
-    //   text-align: center;
-    // }
+    .cities_inner_01 {
+      flex: 1;
+
+      .h2_tag {
+        text-align: center;
+        @include temperature(); // color: $light_color;
+
+        @media (min-width:768px) {
+          font-size: 2.4rem;
+        }
+      }
+
+      p {
+        text-align: center;
+
+        // font-size: 1.2rem;
+        @media (min-width:$sm-breakpoint) {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .cities_inner_02 {
+      flex: 1;
+
+      img {
+        justify-self: end;
+        align-self: flex-end;
+        height: 120px;
+        width: 100%;
+        object-fit: contain;
+
+        @media (min-width:$sm-breakpoint) {
+          height: 125px;
+        }
+      }
+    }
   }
 }
 
-@media screen and (min-width:700px) {
-  @mixin temperature() {
-    font-size: 6rem;
+@media (min-width:$sm-breakpoint) {
+
+  // @mixin temperature() {
+  //   font-size: 6rem;
+  // }
+  .cities_inner_text {
+    font-size: 1.2rem;
   }
-  .inner_weather{
-    
-    .temp {
-      color: $light_color;
-      font-family: $font-family-heading;
-      font-weight: weight(bold);
-      font-size: 6rem;
-      text-align: right;
-      padding: 5px;
+
+  .cities_inner_02 {
+    flex: 1;
+
+    img {
+      justify-self: end;
+      align-self: flex-end;
+      height: 120px;
+      width: 100%;
+      object-fit: contain;
     }
   }
+
+
+  .weather {
+    .inner_weather {
+
+
+      .weat_01 {
+
+        // padding-top: 10px;
+        // justify-self: start;
+        h3 {
+          text-align: right;
+          color: $light_color;
+          padding: 2px;
+          font-weight: weight(bold);
+          font-size: 1.5rem;
+        }
+
+        p {
+          // padding: 10px 0px;
+          // margin-top: 5px;
+          color: $light_color;
+          font-size: 1.6rem;
+          padding: 2px;
+
+          span {
+            font-weight: weight(bold);
+          }
+        }
+      }
+
+      img {
+        height: 110px;
+        width: 100%;
+      }
+    }
+
+  }
+
+
+
+
 
   .inside {
     .heading_one {
@@ -286,78 +406,56 @@ $dark_color: black;
       color: $light_color;
       font-family: $font-family-heading;
       font-weight: weight(bold);
-      font-size: 3.2rem;
+      font-size: 4rem;
     }
   }
 
-  .container {
-    width: 70%;
-  }
 
-  .cities {
-    padding: 20px 14px;
-    height: 140px;
-  }
 
-  .heading_one {
-    font-size: 3rem;
-  }
-
-  .h2_tag {
-    font-size: 6rem;
-  }
-
-  .cities_inner {
+  .stats_001 {
     h2 {
-      font-size: 1.8rem;
-      font-family: $font-family-text;
+      font-size: 2rem;
     }
 
     p {
       font-size: 1.5rem;
     }
-
-    .feels {
-      font-size: 1.3rem;
-    }
-
-    img {
-      justify-self: end;
-      align-self: flex-end;
-    }
-
   }
-  .weat_01 {
 
-    // padding-top: 10px;
-    // justify-self: start;
-    h3 {
-      text-align: right;
-      color: $light_color;
-      padding: 2px;
-      font-weight: weight(bold);
+  .cities {
+    padding: 20px 14px;
+    height: 150px;
+
+    .cities_inner {
+      h2 {
+        font-size: 2.4rem;
+        font-family: $font-family-text;
+      }
+
+
+      p {
+        font-size: 1.5rem;
+      }
+
+      .feels {
+        font-size: 1.3rem;
+      }
+
+
     }
 
-    p {
-      // padding: 10px 0px;
-      // margin-top: 5px;
-      color: $light_color;
-      font-size: 1.6rem;
-      padding: 2px;
+    .cities_inner_01 {
+      .h2_tag {
+        font-size: 4rem;
+      }
+    }
 
-      span {
-        font-weight: weight(bold);
+    .cities_inner_02 {
+      img {
+        justify-self: end;
+        align-self: flex-end;
+        height: 150px;
       }
     }
   }
-
-
- 
-
-
-
-  // .h2_tag{
-
-  // }
-
 }

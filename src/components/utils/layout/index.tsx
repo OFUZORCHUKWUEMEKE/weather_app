@@ -4,8 +4,8 @@ import "./index.scss";
 import { IWeather } from "../../../interfaces/IWeather";
 import { getWeather } from "../../../services/weather";
 import { pageurl } from "../../../utils/constants";
-import { logError } from "../../../utils/functions";
-import { getDayandTime } from "../../home-view/utils";
+import { getDayandTime, logError } from "../../../utils/functions";
+// import { getDayandTime } from "../../home-view/utils";
 
 const Layout: React.FC = (props) => {
   const [weatherSearchQuery, setWeatherSearchQuery] = useState("");

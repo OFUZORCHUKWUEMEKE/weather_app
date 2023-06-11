@@ -16,7 +16,7 @@ const Site = (props: any) => {
     localStorageKeys.hasSetInitialTopCities
   );
 
-  if (!topCitiesHasBeenSet) {
+  if (!topCitiesHasBeenSet){
     localstorageSet(localStorageKeys.topCities, topCitiesLocationCoords);
     localstorageSet(localStorageKeys.hasSetInitialTopCities, "true");
   }

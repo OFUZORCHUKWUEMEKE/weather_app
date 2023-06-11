@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import { IHomeWeatherData } from "../../interfaces/IHomeWeatherData";
 import {
+  getDayandTime,
+  getFavLocations,
   getUserLocationCoords,
+  isFavourite,
   locationPermissionQuery,
   logError,
   sortByLocationName,
@@ -17,11 +20,19 @@ import {
   localstorageSet,
 } from "../../utils/local-storage-helpers";
 import './index.scss'
-import { getDayandTime } from "./utils";
+import Modal from "./Modal";
+import Weather from "./Weather";
+import { useOnlineStatus } from "../../hooks/use-online";
+// import { getDayandTime } from "./utils";
 
 const Home = () => {
   const navigate = useNavigate();
   const homeWeatherData = useLoaderData() as IHomeWeatherData;
+
+  const weather = useLoaderData() as IWeather;
+  const { isOnline } = useOnlineStatus();
+
+  const { location, current } = weather;
 
   const [locationPermissionStatus, setLocationPermissionStatus] =
     useState<LocationPermissionEnum>();
@@ -29,6 +40,10 @@ const Home = () => {
 
   const [weatherSearchQuery, setWeatherSearchQuery] = useState("");
   const [weatherResult, setWeatherResult] = useState<IWeather>();
+
+  // const [isFav, setIsFav] = useState<boolean>(!!isFavourite(weather));
+
+  console.log(weather)
 
   let searchTimeout: number;
 
@@ -38,24 +53,79 @@ const Home = () => {
 
     searchTimeout = setTimeout(() => {
       console.log("====>", query);
-      getWeather(query)
-        .then(setWeatherResult)
+      getWeather(query).then((state) => {
+        console.log(state)
+        setWeatherResult(state)
+        console.log(weatherResult)
+        console.log('data')
+      })
+        // .then(setWeatherResult)
         .catch((err: any) => logError(err));
     }, 500);
   };
-
-
-
-
   const cities = document.querySelector('.cities')
 
 
+  console.log(weatherResult)
 
-  console.log(sortByLocationName(homeWeatherData.largestCitiesWeather))
 
 
-  console.log(userWeather)
+  // console.log(sortByLocationName(homeWeatherData.largestCitiesWeather))
+
+
+  // console.log(userWeather)
   const { time, number, isDay, isNight, todaysDate } = getDayandTime()
+
+  const redirect = (data: any) => {
+    // console.log(data)
+    const loc = `${data?.location.lat},${data?.location.lon}`;
+    localstorageSet(localStorageKeys.userLocation, loc);
+    navigate(pageurl.WEATHER_DETAIL.replace(":location", loc));
+  }
+
+  let filterSearch =
+     homeWeatherData?.largestCitiesWeather?.filter(weather=>
+        weather?.location?.name.toLowerCase() === weatherResult?.location?.name.toLocaleLowerCase()
+        // weather?.location?.name.toLowerCase().includes(weatherResult?.location?.name)
+      )
+      console.log(filterSearch)
+      console.log(weatherResult)
+
+
+
+    let filter = filterSearch.length===0 ? homeWeatherData.largestCitiesWeather : filterSearch
+
+  
+
+  // let filtered ?
+
+  // const toggleFavorite = (item: IWeather) => {
+  //   const {
+  //     location: { lat: latitude, lon: longitude },
+  //   } = item;
+  //   const locsFavourites = getFavLocations();
+
+  //   if (isFavourite(item)) {
+  //     // removing from favorites
+  //     const updatedFavs = (locsFavourites || []).filter((fav) => {
+  //       const [lat, loc] = fav.split(",");
+  //       setIsFav(false);
+  //       return (
+  //         String(latitude) !== lat.trim() && String(longitude) !== loc.trim()
+  //       );
+  //     });
+
+  //     localstorageSet(localStorageKeys.favorites, updatedFavs);
+  //     return;
+  //   }
+
+  //   const updatedFavs = (locsFavourites || []).concat(
+  //     `${latitude},${longitude}`
+  //   );
+  //   setIsFav(true);
+  //   localstorageSet(localStorageKeys.favorites, updatedFavs);
+  // };
+  
 
 
 
@@ -63,7 +133,7 @@ const Home = () => {
 
   useEffect(() => {
     locationPermissionQuery().then(({ state }) => {
-      console.log(state)
+      // console.log(state)
       if (state === "granted") {
         setLocationPermissionStatus(LocationPermissionEnum.GRANTED);
         const onSuccess = (coords: ICoords) => {
@@ -123,7 +193,6 @@ const Home = () => {
     getUserLocationCoords(onSuccess, onError);
   };
   // let location:Location
-
   //  {location} = userWeather
   // console.log(location)
   return (
@@ -156,51 +225,55 @@ const Home = () => {
                       {/* <h2 className="temp--location">{userWeather.location.name}</h2> */}
                       <div className="">
                         {/* <h2 className="temp">{userWeather.current.temp_c}'c</h2> */}
-                        <img src={isDay ? `${image?.day}` : `${image?.night}`} style={{ width: '100%', height: '70px', objectFit: 'contain' }} />
+                        <img src={isDay ? `${image?.day}` : `${image?.night}`} />
                       </div>
                       <h2 className="temp">{userWeather.current.temp_c}'c</h2>
                       <div className="weat_01">
                         <h3>{userWeather.location.name}</h3>
                         <h3>{userWeather.location.localtime.split(" ")[1]}</h3>
-                        <p className="p_tag">Feels Like <span>{userWeather.current.feelslike_c} 'c</span> </p>
+                        <p className="p_tag">Feels Like <span>{userWeather.current.feelslike_c} 'c</span></p>
                       </div>
                     </div>
                   </div>
                 </>
               )}
-
               <div className="my_weather">
                 <div>
                   <h2 className="top_cities">Top Cities</h2>
-                  {/* <div className="input_container">
+                  <div className="input_container">
                     <input
                       type="search"
                       name="weather-search"
                       id="weather-search"
                       className="search_input"
+                      placeholder="Search Cities..."
                       value={weatherSearchQuery}
                       onChange={({ target: { value } }) => {
                         setWeatherSearchQuery(value);
                         handleSearch(value);
                       }}
                     />
-                  </div> */}
+                  </div>
                   <div className="inner_cities">
-                    {homeWeatherData.largestCitiesWeather.map((weather, index) => {
+                    {/* homeWeatherData.largestCitiesWeather.map */}
+                    {filter.map((weather, index) => {
                       const image = weatherConditionCodesMappedToIcons.find((weat) => weat.code === weather.current.condition.code)
                       return (
-                        <div className="cities" key={index}>
+                        // Weather Components
+                        // <Weather {...weather} {...image} key={index}/>
+                        <div className="cities" onClick={() => redirect(weather)} key={index}>
                           <div className="cities_inner">
                             <h2>{weather.location.name}</h2>
                             {/* <p>{weather.location.country}</p> */}
                             <p>{weather.location.localtime.split(" ")[1]}</p>
                             <p className="feels">Feels Like <span>{weather.current.feelslike_c}</span> 'c</p>
                           </div>
-                          <div className="cities_inner">
+                          <div className="cities_inner_01">
                             <h3 className="h2_tag">{weather.current.temp_c}'c</h3>
+                            <p className="cities_inner_text">{weather.current.condition.text}</p>
                           </div>
-                          <div className="cities_inner">
-                            <img src={isDay ? `${image?.day}` : `${image?.night}`} style={{ width: '100%', height: '70px', objectFit: 'contain' }} />
+                          <div className="cities_inner_02">
+                            <img src={isDay ? `${image?.day}` : `${image?.night}`} />
                           </div>
                         </div>
                       )
@@ -218,24 +291,7 @@ const Home = () => {
         // <div style={{ color: "red" }} onClick={() => requestLocationPerms()}>
         //   get perm modal
         // </div>
-        <>
-          {/* <button data-modal-target="#modal">Open Modal</button> */}
-          <div className="modal active" id="modal">
-            <div className="modal-header">
-              <div className="title">Enable Location Services</div>
-              <button data-close-button className="close-button">&times;</button>
-            </div>
-            <div className="modal-body">
-              <div >
-                <h3>We need to know wheree you are in order to get your weather conditions</h3>
-                <div className="pre-body">
-                  <button onClick={() => requestLocationPerms()}>Allow</button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div id="overlay" className="active"></div>
-        </>
+        <Modal />
       )}
     </div>
   );

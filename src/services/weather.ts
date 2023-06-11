@@ -29,7 +29,6 @@ export const getWeather = async (location: string) => {
         if((err.response?.data as {error : {code: number}})?.error?.code === 1006) {
           return null
         }
-
         // reject to trigger the correct error boundary
         reject({});
       });
