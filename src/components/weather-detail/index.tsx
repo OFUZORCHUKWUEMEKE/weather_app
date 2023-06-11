@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import { IWeather } from "../../interfaces/IWeather";
-import { localstorageSet } from "../../utils/local-storage-helpers";
+import { localstorageGet, localstorageSet } from "../../utils/local-storage-helpers";
 import { localStorageKeys, weatherConditionCodesMappedToIcons } from "../../utils/constants";
 import { getDayandTime, getFavLocations, isFavourite } from "../../utils/functions";
 import { useOnlineStatus } from "../../hooks/use-online";
@@ -13,16 +13,30 @@ const WeatherDetail = () => {
 
   const [forecast, setForecast] = useState(false)
 
+  const [notes,setNotes] = useState()
+
   const { location, current } = weather;
 
   const { time, number, isDay, isNight, todaysDate, Today } = getDayandTime()
 
-  console.log(weather)
-  console.log({ weather, isDay })
+  // console.log(weather)
+  // console.log({ weather, isDay })
 
   const [isFav, setIsFav] = useState<boolean>(!!isFavourite(weather));
 
   console.log(isFav)
+
+  const handleKeyDown = (event:any) => {
+    if (event.key === 'Enter') {
+      // 👇 Get input value
+      setNotes(event.target.value)
+      console.log(event.target.value)
+      localstorageSet(localStorageKeys.notes,String(notes),true)
+      console.log(localstorageGet(localStorageKeys.notes))
+    }
+  };
+
+  console.log(localstorageGet(localStorageKeys.notes))
 
   const toggleFavorite = (item: IWeather) => {
     const {
@@ -86,10 +100,10 @@ const WeatherDetail = () => {
             <h1 className="name">{location.name}</h1>
             <p className="date">{Today}</p>
             <div className="forecast">
-              <div className="forecast_000" onClick={()=>setForecast(true)}>
+              <div className={forecast ? 'forecast_000 active':'forecast_000'} onClick={()=>setForecast(true)}>
                 <h2>Forecast</h2>
               </div>
-              <div className="forecast_001" onClick={()=>setForecast(false)}>
+              <div className={forecast ? 'forecast_001':'forecast_001 active'} onClick={()=>setForecast(false)}>
                 <h2>Notes</h2>
               </div>
             </div>
@@ -100,7 +114,7 @@ const WeatherDetail = () => {
                     {/* <h2 className="">Notes</h2> */}
                   </div>
 
-                  <input placeholder="Add Notes" className="add-input" />
+                  <input placeholder="Add Notes" onKeyDown={handleKeyDown} onChange={(e)=>e.target.value} className="add-input" />
                 </div>
               )}
             </div>

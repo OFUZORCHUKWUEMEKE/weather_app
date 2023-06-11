@@ -95,7 +95,7 @@ $dark_color: black;
 
         .forecast_000 {
             padding: 10px 20px;
-            background-color: #1b86e6;
+            background-color: #4c5f70;
             color: white;
             border-radius: 10px;
             cursor: pointer;
@@ -108,11 +108,14 @@ $dark_color: black;
 
             
         }
+        .active{
+            background-color: #1b86e6;
+        }
 
         .forecast_001 {
             padding: 10px 28px;
             cursor: pointer;
-            background-color: #1b86e6;
+            background-color: #4c5f70;
             margin-left: 10px;
             color: white;
             border-radius: 10px;
@@ -121,6 +124,9 @@ $dark_color: black;
                 margin-left: 18px;
                 font-weight: bold;
               }
+        }
+        .active{
+            background-color: #1b86e6;
         }
     }
 
